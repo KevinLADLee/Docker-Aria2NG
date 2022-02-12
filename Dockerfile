@@ -1,6 +1,8 @@
 FROM alpine:edge
 
-MAINTAINER oD <oldiy@163.com>
+MAINTAINER kevinlad <kevinladlee@gmail.com>
+
+ARG ARIANG_VERSION=1.2.3
 
 RUN apk update && \
 	apk add --no-cache --update bash && \
@@ -8,14 +10,12 @@ RUN apk update && \
 	mkdir -p /conf-copy && \
 	mkdir -p /data && \
 	apk add --no-cache --update aria2 && \
-	apk add git && \
-	git clone https://github.com/ziahamza/webui-aria2 /aria2-webui && \
-	rm /aria2-webui/.git* -rf && \
-	apk del git && \
 	mkdir -p /aria2ng && \
 	cd /aria2ng && \
 	apk add --no-cache --update wget && \
-	wget -N --no-check-certificate https://github.com/mayswind/AriaNg/releases/download/1.0.0/AriaNg-1.0.0.zip && unzip AriaNg-1.0.0.zip && rm -rf AriaNg-1.0.0.zip  && \
+	wget -N --no-check-certificate https://github.com/mayswind/AriaNg/releases/download/${ARIANG_VERSION}/AriaNg-${ARIANG_VERSION}.zip \ 
+	&& unzip AriaNg-${ARIANG_VERSION}.zip \
+	&& rm -rf AriaNg-${ARIANG_VERSION}.zip  && \
 	apk del wget && \
 	apk add --update darkhttpd
 
